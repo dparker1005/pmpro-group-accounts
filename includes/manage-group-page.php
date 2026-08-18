@@ -327,6 +327,7 @@ function pmprogroupacct_shortcode_manage_group() {
 
 	// If the user is trying to invite new members, invite them.
 	$invite_message = '';
+	$valid_emails = array();
 	if ( isset( $_REQUEST['pmprogroupacct_invite_new_members_emails'] ) ) {
 		// Make sure that the nonce is valid.
 		if ( ! wp_verify_nonce( $_REQUEST['pmprogroupacct_invite_new_members_nonce'], 'pmprogroupacct_invite_new_members' ) ) {
@@ -334,22 +335,22 @@ function pmprogroupacct_shortcode_manage_group() {
 		}
 
 		// Make sure that a level ID was passed.
-		if ( ! empty( $invite_message ) && empty( $_REQUEST['pmprogroupacct_invite_new_members_level_id'] ) ) {
+		if ( empty( $invite_message ) && empty( $_REQUEST['pmprogroupacct_invite_new_members_level_id'] ) ) {
 			$invite_message = '<div class="' . pmpro_get_element_class( 'pmpro_message pmpro_error' ) . '">' . esc_html__( 'No level ID was passed.', 'pmpro-group-accounts' ) . '</div>';
 		}
 
 		// Make sure that the level ID is an integer.
-		if ( ! empty( $invite_message ) && ! is_numeric( $_REQUEST['pmprogroupacct_invite_new_members_level_id'] ) ) {
+		if ( empty( $invite_message ) && ! is_numeric( $_REQUEST['pmprogroupacct_invite_new_members_level_id'] ) ) {
 			$invite_message = '<div class="' . pmpro_get_element_class( 'pmpro_message pmpro_error' ) . '">' . esc_html__( 'Level ID must be a number.', 'pmpro-group-accounts' ) . '</div>';
 		}
 
 		// Make sure that the level ID can be claimed using this group code.
-		if ( ! empty( $invite_message ) && ! in_array( (int)$_REQUEST['pmprogroupacct_invite_new_members_level_id'], array_map( 'intval', $group_settings['child_level_ids'] ), true ) ) {
+		if ( empty( $invite_message ) && ! in_array( (int)$_REQUEST['pmprogroupacct_invite_new_members_level_id'], array_map( 'intval', $group_settings['child_level_ids'] ), true ) ) {
 			$invite_message = '<div class="' . pmpro_get_element_class( 'pmpro_message pmpro_error' ) . '">' . esc_html__( 'This level cannot be claimed using this group code.', 'pmpro-group-accounts' ) . '</div>';
 		}
 
 		// Make sure that email addresses were passed.
-		if ( ! empty( $invite_message ) && empty( $_REQUEST['pmprogroupacct_invite_new_members_emails'] ) ) {
+		if ( empty( $invite_message ) && empty( $_REQUEST['pmprogroupacct_invite_new_members_emails'] ) ) {
 			$invite_message = '<div class="' . pmpro_get_element_class( 'pmpro_message pmpro_error' ) . '">' . esc_html__( 'No email addresses were passed.', 'pmpro-group-accounts' ) . '</div>';
 		}
 
