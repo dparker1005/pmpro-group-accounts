@@ -449,7 +449,7 @@ function pmprogroupacct_shortcode_manage_group() {
 		}
 
 		// Make sure that there is an available seat in the group.
-		if ( ! empty( $create_member_message ) && $group->is_accepting_signups() ) {
+		if ( empty( $create_member_message ) && ! $group->is_accepting_signups() ) {
 			$create_member_message = '<div class="' . pmpro_get_element_class( 'pmpro_message pmpro_error' ) . '">' . esc_html__( 'No available seats in this group.', 'pmpro-group-accounts' ) . '</div>';
 		}
 
