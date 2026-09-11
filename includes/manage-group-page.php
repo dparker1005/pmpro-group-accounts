@@ -282,8 +282,8 @@ function pmprogroupacct_shortcode_manage_group() {
 			$seats_message = '<div class="' . pmpro_get_element_class( 'pmpro_message pmpro_error' ) . '">' . esc_html__( 'Total seats must be a number.', 'pmpro-group-accounts' ) . '</div>';
 		}
 
-		// Only make changes if the number of seats is different.
-		if ( (int)$_REQUEST['pmprogroupacct_group_total_seats'] !== $group->group_total_seats ) {
+		// Only make changes if the checks above passed and the number of seats is different.
+		if ( empty( $seats_message ) && (int)$_REQUEST['pmprogroupacct_group_total_seats'] !== $group->group_total_seats ) {
 			// Update the group settings.
 			$group->update_group_total_seats( (int)$_REQUEST['pmprogroupacct_group_total_seats'] );
 
@@ -304,9 +304,9 @@ function pmprogroupacct_shortcode_manage_group() {
 			$group_code_message = '<div class="' . pmpro_get_element_class( 'pmpro_message pmpro_error' ) . '">' . esc_html__( 'Unable to validate your request. The group code was not updated.', 'pmpro-group-accounts' ) . '</div>';
 		}
 
-		// Only make changes if this is a different group code.
+		// Only make changes if the checks above passed and this is a different group code.
 		$new_group_code = sanitize_text_field( $_REQUEST['pmprogroupacct_group_code'] );
-		if ( $new_group_code !== $group->group_checkout_code ) {
+		if ( empty( $group_code_message ) && $new_group_code !== $group->group_checkout_code ) {
 			// Make sure that no other group has this code.
 			$existing_group = PMProGroupAcct_Group::get_group_by_checkout_code( $new_group_code );
 			if ( empty( $existing_group ) ) {
