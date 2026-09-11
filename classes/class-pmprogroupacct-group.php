@@ -101,7 +101,7 @@ class PMProGroupAcct_Group {
 		$status   = isset( $args['status'] ) && in_array( strtolower( (string) $args['status'] ), array( 'active', 'inactive' ), true ) ? strtolower( $args['status'] ) : '';
 
 		// Detect unsupported orderby usage.
-		if ( $orderby !== preg_replace( '/[^a-zA-Z0-9\s,`]/', ' ', $orderby ) ) {
+		if ( $orderby !== preg_replace( '/[^a-zA-Z0-9_\s,`]/', ' ', $orderby ) ) {
 			return empty( $args['return_count'] ) ? array() : 0;
 		}
 
