@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, group accounts, corporate accounts, team memberships
 Requires at least: 5.4
-Tested up to: 7.0
-Stable tag: 1.6
+Tested up to: 7.1
+Stable tag: 1.6.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,6 +27,12 @@ This plugin allows you to sell memberships to corporate organizations, families,
 View full documentation at: https://www.paidmembershipspro.com/add-ons/group-accounts/
 
 == Changelog ==
+= 1.6.1 - 2026-09-11 =
+* SECURITY: Fixed an issue where the group seat total and group checkout code could be updated on the Manage Group page even when the permission or nonce checks failed. #95 (@flintfromthebasement)
+* SECURITY: Fixed an issue where invites could be sent for levels that are not child levels of the group. #97 (@flintfromthebasement)
+* BUG FIX: Fixed an issue where new group members could be created on the Manage Group page after all seats in the group were filled. #96 (@flintfromthebasement)
+* BUG FIX: Fixed an issue where sorting the Group Accounts admin list by any column other than ID showed no results. #94 (@kimwhite)
+
 = 1.6 - 2026-05-21 =
 * FEATURE: Added a new "Group Accounts" admin page (Memberships → Group Accounts) for administrators to view all groups on the site and manually create new groups. The new admin list table supports custom columns via the `pmprogroupacct_manage_groupslist_columns` filter and the `pmprogroupacct_manage_grouplist_custom_column` action. #92 (@dparker1005)
 * ENHANCEMENT: Added a "Managed by [parent name]" message to the membership account page level cards for child group members, supporting the PMPro 3.4+ card-based account layout. #87 (@dparker1005)
